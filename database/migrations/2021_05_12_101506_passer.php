@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Assister extends Migration
+class Passer extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,25 @@ class Assister extends Migration
      */
     public function up()
     {
-        Schema::create('assister', function (Blueprint $table) {
-            $table->bigIncrements('id_assister');
+        Schema::create('passErexams', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('cin_candidat');
             $table->foreign('cin_candidat')
                 ->references('cin_candidat')
                 ->on('candidats')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
+                $table->unsignedBigInteger('id_examen');
+                $table->foreign('id_examen')
+                    ->references('id_examen')
+                    ->on('examens')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
+                
             
-            $table->unsignedBigInteger('id_seance');
-            $table->foreign('id_seance')
-                ->references('id_seance')
-                ->on('seances')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
             $table->timestamps();
-        });//
+        });
     }
 
     /**
@@ -39,6 +41,6 @@ class Assister extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assister');//
+        //
     }
 }

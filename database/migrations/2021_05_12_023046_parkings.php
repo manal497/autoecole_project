@@ -14,12 +14,13 @@ class Parkings extends Migration
     public function up()
     {
         Schema::create('parkings', function (Blueprint $table) {
-            $table->string('matricule')->primary();
+            $table->bigIncrements('id_vehicule');
+            $table->string('matricule')->unique();
             $table->string('type_véhicule');
-            $table->string('marque');
+            $table->string('marque')->nullable();
             $table->string('etat')->default('interne');
             $table->timestamps();
-        }); //
+        });
     }
 
     /**
@@ -29,6 +30,6 @@ class Parkings extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('parkings');//
+        Schema::dropIfExists('parkings');
     }
 }

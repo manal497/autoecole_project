@@ -14,7 +14,8 @@ class Utilisateurs extends Migration
     public function up()
     {
         Schema::create('utilisateurs', function (Blueprint $table) {
-            $table->string('cin')->primary();
+            $table->bigIncrements('id_user');
+            $table->string('cin')->unique();
             $table->string('nom');
             $table->string('prenom');
             $table->string('password');
@@ -26,7 +27,7 @@ class Utilisateurs extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->timestamps();
-        });//
+        });
     }
 
     /**
@@ -36,6 +37,6 @@ class Utilisateurs extends Migration
      */
     public function down()
     {
-        schema::dropIfExists('utilisateurs');//
+        schema::dropIfExists('utilisateurs');
     }
 }

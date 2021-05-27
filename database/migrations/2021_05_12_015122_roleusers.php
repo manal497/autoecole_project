@@ -16,7 +16,7 @@ class Roleusers extends Migration
         Schema::create('roleusers', function ($table) {
             $table->bigIncrements('id_role');
             $table->string('role');
-        }); //
+        });
     }
 
     /**
@@ -26,6 +26,6 @@ class Roleusers extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roleusers');//
+        Schema::dropIfExists('roleusers');
     }
 }

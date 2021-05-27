@@ -15,25 +15,22 @@ class Affecter extends Migration
     {
         Schema::create('affectations', function (Blueprint $table) {
             $table->bigIncrements('id_affectation');
-
-            $table->string('matricule');
-            $table->foreign('matricule')
-                ->references('matricule')
+            $table->unsignedBigInteger('id_vehicule');
+            $table->foreign('id_vehicule')
+                ->references('id_vehicule')
                 ->on('parkings')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-
-            $table->string('cin_moniteur');
-            $table->foreign('cin_moniteur')
-                ->references('cin_moniteur')
-                ->on('moniteurs')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-
-           
+      
+                $table->unsignedBigInteger('id_moniteur');
+                $table->foreign('id_moniteur')
+                    ->references('id_moniteur')
+                    ->on('moniteurs')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
 
             $table->timestamps();
-        });//
+        });
     }
 
     /**
@@ -43,6 +40,6 @@ class Affecter extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('affectations');//
+        Schema::dropIfExists('affectations');
     }
 }

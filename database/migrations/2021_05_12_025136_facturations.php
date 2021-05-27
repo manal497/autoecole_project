@@ -16,9 +16,7 @@ class Facturations extends Migration
         Schema::create('facturations', function (Blueprint $table) {
             $table->bigIncrements('id_fact');
             $table->date('date_fact');
-            $table->double('montant_paye');
-            $table->double('reste');
-            
+            $table->double('montant_paye');    
             $table->unsignedBigInteger('id_reservation');
                 $table->foreign('id_reservation')
                     ->references('id_reservation')
@@ -26,7 +24,7 @@ class Facturations extends Migration
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
             $table->timestamps();
-        });//
+        });
     }
 
     /**
@@ -36,6 +34,6 @@ class Facturations extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('facturations'); //
+        Schema::dropIfExists('facturations');
     }
 }

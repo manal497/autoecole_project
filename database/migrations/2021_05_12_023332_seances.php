@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Sceances extends Migration
+class Seances extends Migration
 {
     /**
      * Run the migrations.
@@ -16,16 +16,19 @@ class Sceances extends Migration
         Schema::create('seances', function (Blueprint $table) {
             $table->bigIncrements('id_seance');
             $table->string('type_seance');
-            $table->string('duree');
-            $table->string('effectuer')->default('non');
-            $table->string('cin_moniteur');
-                $table->foreign('cin_moniteur')
-                    ->references('cin_moniteur')
-                    ->on('moniteurs')
-                    ->onDelete('cascade')
-                    ->onUpdate('cascade');
+
+            $table->time('heure_debut');
+            $table->time('heure_fin');
+            $table->time('jour');
+              
+            $table->unsignedBigInteger('id_moniteur');
+            $table->foreign('id_moniteur')
+                ->references('id_moniteur')
+                ->on('moniteurs')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
-        });//
+        });
     }
 
     /**
@@ -35,6 +38,6 @@ class Sceances extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seances');//
+        Schema::dropIfExists('seances');
     }
 }

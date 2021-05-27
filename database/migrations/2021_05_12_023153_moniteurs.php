@@ -14,16 +14,18 @@ class Moniteurs extends Migration
     public function up()
     {
         Schema::create('moniteurs', function (Blueprint $table) {
-            $table->string('cin_moniteur')->primary();
+            $table->bigIncrements('id_moniteur');
+            $table->string('cin_moniteur')->unique();
             $table->string('nom');
             $table->string('prenom');
-            $table->text('adresse');
+            $table->text('adresse')->nullable();
             $table->string('telephone');
-            $table->date('date_naissance');
+            $table->date('date_naissance')->nullable();
+            $table->string('lieu_naissance')->nullable();
             $table->string('numero_permis');
             $table->string('type_moniteur');
             $table->timestamps();
-        });//
+        });
     }
 
     /**
@@ -33,6 +35,6 @@ class Moniteurs extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('moniteurs'); //
+        Schema::dropIfExists('moniteurs');
     }
 }

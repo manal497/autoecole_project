@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Ecole extends Migration
+class Examen extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class Ecole extends Migration
      */
     public function up()
     {
-        Schema::create('ecole', function (Blueprint $table) {
-            $table->string('nom');
-            $table->text('adresse_ecole');
-            $table->string('ville');
-            $table->string('telephone');
-            $table->string('email');
+        Schema::create('examens', function (Blueprint $table) {
+            $table->bigIncrements('id_examen');
+            $table->date('date_examen');
+            $table->time('heure_examen_debut');
+            $table->time('heure_examen_fin');
             $table->timestamps();
-        });//
+        });
     }
 
     /**
@@ -30,6 +29,6 @@ class Ecole extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ecole'); //
+        schema::dropIfExists('examens');
     }
 }

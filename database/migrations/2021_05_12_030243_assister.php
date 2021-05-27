@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Documents extends Migration
+class Assister extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,9 @@ class Documents extends Migration
      */
     public function up()
     {
-        Schema::create('documents', function (Blueprint $table) {
-            $table->bigIncrements('id_dossier');
-       
-            $table->binary('carte_recto');
-            $table->binary('carte_verso');
-            $table->binary('certificat_medical');
-            $table->binary('photo');
-            $table->binary('permis');
-            $table->binary('attestation_fin_formation');
-            $table->binary('recu_paiement');
-            $table->binary('demmande_etablit');
-
-
+        Schema::create('assister', function (Blueprint $table) {
+            $table->bigIncrements('id_assister');
+        $table->string('effectuee')->default('Non');
             $table->string('cin_candidat');
             $table->foreign('cin_candidat')
                 ->references('cin_candidat')
@@ -33,8 +23,14 @@ class Documents extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             
+            $table->unsignedBigInteger('id_seance');
+            $table->foreign('id_seance')
+                ->references('id_seance')
+                ->on('seances')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
-        });//
+        });
     }
 
     /**
@@ -44,6 +40,6 @@ class Documents extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('documents');//
+        Schema::dropIfExists('assister');
     }
 }
