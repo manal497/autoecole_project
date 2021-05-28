@@ -62,3 +62,4 @@ Route::get('datailsCandidat/{cin_candidat}', [updateCandidat::class, 'detailsCan
 Route::put('updateResCandidat', [updateCandidat::class, 'updateReservation'])->name('updateResCandidat');
 //
 Route::put('updateDocCandidat', [updateCandidat::class, 'updateDocCandidat'])->name('updateDocCandidat');
+Route::resource('seances', SeanceController::class);
