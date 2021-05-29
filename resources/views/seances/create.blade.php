@@ -29,8 +29,9 @@
           <thead>
             <tr>
                 <td>Jour</td>
-                <td>Date Debut</td>
-                <td>Date Fin</td>
+                <td>Heure Debut</td>
+                <td>Heure Fin</td>
+                <td>Moniteur</td>
                 <td>Operations</td>
             </tr>
           </thead>
@@ -41,6 +42,7 @@
             <td>{{$row['jour']}}</td>
             <td>{{$row['heure_debut']}}</td>
             <td>{{$row['heure_fin']}}</td>
+            <td>{{$row['nom']}}</td>
            
             
            
@@ -69,8 +71,9 @@
           <thead>
             <tr>
                 <td>Jour</td>
-                <td>Date Debut</td>
-                <td>Date Fin</td>
+                <td>Heure Debut</td>
+                <td>Heure Fin</td>
+                <td>Moniteur</td>
                 <td>Operations</td>
             </tr>
           </thead>
@@ -81,6 +84,11 @@
             <td>{{$row['jour']}}</td>
             <td>{{$row['heure_debut']}}</td>
             <td>{{$row['heure_fin']}}</td>
+            <td>{{$row['nom']}}</td>
+            
+            
+
+
            
             
            
@@ -110,8 +118,9 @@
           
             <tr>
                 <td>Jour</td>
-                <td>Date Debut</td>
-                <td>Date Fin</td>
+                <td>Heure Debut</td>
+                <td>Heure Fin</td>
+                <td>Moniteur</td>
                 <td>Operations</td>
             </tr>
           </thead>
@@ -122,6 +131,7 @@
             <td>{{$row['jour']}}</td>
             <td>{{$row['heure_debut']}}</td>
             <td>{{$row['heure_fin']}}</td>
+            <td>{{$row['nom']}}</td>
            
             
            
@@ -168,9 +178,20 @@
                         <h4>Informations personnelles</h4>
                        
                     <div class="col-12 ">
-                        <label for="cin" class=" col-sm-1 col-form-label"><h5>Jour</h5></label>
-                       
-                        <input type="date" name="jour" id="jour"  class="form-control " required>
+                        {{-- <label for="cin" class=" col-sm-1 col-form-label"><h5>Jour</h5></label>
+                        
+                        <input type="text" name="jour" id="jour"  class="form-control " required> --}}
+                        <select class="form-select" name="jour" aria-label="Default select example">
+                            <option selected>Faites votre choix</option>
+                            <option value="Lundi">lundi</option>
+                            <option value="Mardi">mardi</option>
+                            <option value="Mercredi">mercredi</option>
+                            <option value="Jeudi">jeudi</option>
+                            <option value="Vendredi">vendredi</option>
+                            <option value="Samedi">samedi</option>
+                            <option value="Dimanche">dimanche</option>
+
+                          </select>
                         <span style="color:red;">@error ('cin') {{$message}} @enderror</span>
                     </div>
                    <div class="row">
@@ -207,7 +228,7 @@
                     <div class="col-12 form-group">
                         <label for="type_seance" class="control-label  col-form-label"><h5>Type seance</h5></label>
                         
-                        <select name="type_seance" class="form-control">
+                        <select name="type_seance" class="form-control" aria-label="Default select example">
                           
                             <option value="0">Faites votre choix</option>
                             <option value="séance_théorique">séance théorique</option>

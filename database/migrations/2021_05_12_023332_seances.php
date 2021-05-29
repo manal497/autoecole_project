@@ -19,7 +19,7 @@ class Seances extends Migration
 
             $table->time('heure_debut');
             $table->time('heure_fin');
-            $table->time('jour');
+            
               
             $table->unsignedBigInteger('id_moniteur');
             $table->foreign('id_moniteur')

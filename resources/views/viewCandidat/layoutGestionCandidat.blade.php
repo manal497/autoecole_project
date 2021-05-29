@@ -57,7 +57,7 @@
             <a href="#" class="nav-link text-light pl-4"><i class="fas fa-user-tie" style="margin-right:10px;"></i>Moniteurs</a>
         </li>
         <li class="nav-item w-100">
-            <a href="#" class="nav-link text-light pl-4"><i class="fas fa-book-reader" style="margin-right:10px;"></i>Séances</a>
+            <a href="{{route('seances.index')}}" class="nav-link text-light pl-4"><i class="fas fa-book-reader" style="margin-right:10px;"></i>Séances</a>
         </li>
         <li class="nav-item w-100">
           <a href="#" class="nav-link text-light pl-4"><i class="fas fa-parking" style="margin-right:10px;" ></i>Parking</a>
