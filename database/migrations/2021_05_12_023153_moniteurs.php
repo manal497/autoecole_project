@@ -14,7 +14,7 @@ class Moniteurs extends Migration
     public function up()
     {
         Schema::create('moniteurs', function (Blueprint $table) {
-            $table->bigIncrements('id_moniteur');
+            $table->bigIncrements('id');
             $table->string('cin_moniteur')->unique();
             $table->string('nom');
             $table->string('prenom');

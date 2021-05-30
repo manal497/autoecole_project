@@ -118,7 +118,7 @@
   
     <div class="row align-items-center">
         <div class="col-md-8">
-            <h3 class="mb-0">Details du Candidat</h3>
+            <h3 class="mb-0">Details </h3>
         </div>
     </div>
 
@@ -131,8 +131,8 @@
 
       <div class="profile-userpic " style="justify-content: center; margin:auto;">
           <div  class="image-preview" id="imagePreview" style="height: 130px; width:130px; border-radius:150px; border: 1px solid #5b9bd1; display:flex; align-items:center; justify-content: center; font-weight:bold; color:#cccccc; margin:auto;">
-           
-            <img src="{{asset('images/documents/'.$dataDocument->photo)}}" alt="Image preview" class="image-prewiew__image img-responsive"  style="width:200px;  height: 130px; border-radius:150px; margin-right:10px;">
+          
+            <img src="{{asset('images/documents/iconEmploye.jpg')}}" alt="Image preview" class="image-prewiew__image img-responsive"  style="width:200px;  height: 130px; border-radius:150px; margin-right:10px;">
 
 
            
@@ -145,74 +145,36 @@
   </div>
 <div>
   <h3>Informations</h3><br>
-
+  <label>#: </label>
+  <label>{{$id}}</label><br>
 <label>Cin: </label>
-<label>{{$dataCandidat->cin_candidat}}</label><br>
+<label>{{$data->cin_moniteur}}</label><br>
 <label>Nom: </label>
-<label>{{$dataCandidat->nom}}</label><br>
+<label>{{$data->nom}}</label><br>
 <label>Prénom: </label>
-<label>{{$dataCandidat->prenom}}</label><br>
+<label>{{$data->prenom}}</label><br>
 <label>Date naissance: </label>
-<label>{{$dataCandidat->date_naissance}}</label><br>
+<label>{{$data->date_naissance}}</label><br>
 <label>Lieu naissance: </label>
-<label>{{$dataCandidat->lieu_naissance}}</label><br>
+<label>{{$data->lieu_naissance}}</label><br>
 <label>Sexe: </label>
-<label>{{$dataCandidat->sexe}}</label><br>
+<label>{{$data->sexe}}</label><br>
 <label>Téléphone: </label>
-<label>{{$dataCandidat->telephone}}</label><br>
+<label>{{$data->telephone}}</label><br>
 <label>Adresse: </label>
-<label>{{$dataCandidat->adresse}}</label><br>
+<label>{{$data->adresse}}</label><br>
 <label>Type permis: </label>
-<label>{{$dataCandidat->type_permis}}</label><br>
+<label>{{$data->type_moniteur}}</label><br>
+<label>Numéro permis: </label>
+<label>{{$data->numero_permis}}</label><br>
 <hr>
-<div class="col">
-<div class="card" >
-  <div class="card-body">
-    <h4 class="card-title">Reservation</h4>
-
-
-<table border='1' class="table table-striped table-hover">
-  <tr>
-    <td>#</td>
-    <td>date</td>
-    <td>Montant</td>
-    <td>Reste</td>
-    <td>Heures Totales</td>
-    <td>Reste Heures </td>
-    <td>Type Permis</td>
-  
-  </tr>
-  @foreach ($dataReservation as $row)
-  <td>{{$row['id_reservation']}}</td>
-  <td>{{$row['date_reservation']}}</td>
-  <td>{{$row['montant_payee']}}</td>
-  <td>{{$row['reste']}}</td>
-  <td>{{$row['heures_etudes']}}</td>
-  <td>{{$row['reste_heures']}}</td>
-  <td>{{$row['typePermis']}}</td>
-  
-</tr>
-  @endforeach
-</table>
-</div></div></div>
-<h3>Documents</h3>
-<label><a href="{{asset('images/documents/'.$dataDocument['carte_recto'])}}">{{$dataDocument['carte_recto']}}</a></label>
-<label><a href="{{asset('images/documents/'.$dataDocument['carte_verso'])}}">{{$dataDocument['carte_verso']}}</a></label>
-<label><a href="{{asset('images/documents/'.$dataDocument['certificat_medical'])}}">{{$dataDocument['certificat_medical']}}</a></label>
-<label><a href="{{asset('images/documents/'.$dataDocument['permis'])}}">{{$dataDocument['permis']}}</a></label>
-<label><a href="{{asset('images/documents/'.$dataDocument['attestation_fin_formation'])}}">{{$dataDocument['attestation_fin_formation']}}</a></label>
-<label><a href="{{asset('images/documents/'.$dataDocument['recu_paiement'])}}">{{$dataDocument['recu_paiement']}}</a></label>
-<label><a href="{{asset('images/documents/'.$dataDocument['demmande_etablit'])}}">{{$dataDocument['demmande_etablit']}}</a></label>
-
-<hr><br>
-
 
 </div>
     
     <div class="modal-footer">
        
        
-        <a href="{{route('candidatlist')}}" class="  btn btn-success"  title="Anuler la modification" style="color: rgb(233, 231, 238);" >Retour</a>
+        <a href="" class="  btn btn-success"  title="Anuler la modification" style="color: rgb(233, 231, 238);" >Retour</a>
                 
       </div>
 

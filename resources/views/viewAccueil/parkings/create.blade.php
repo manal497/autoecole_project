@@ -1,4 +1,4 @@
-@extends('layout.layoutGestionCandidat')
+@extends('viewCandidat.layoutGestionCandidat')
 @section('contentCandidat')
 
 <style>
@@ -49,9 +49,8 @@
             <td>
                 <div class="gap-2 d-md-flex ">
                 
-                 <a href="datailsCandidat/{{$row['id']}}" class="btn btn-info" style="color: rgb(233, 231, 238);" role="button" title="Details"><i class="fas fa-file-alt"></i>  </a>
-                 <a href="{{ route('seances.edit',$row->id) }}"  class="btn btn-success" style="color: rgb(233, 231, 238);" role="button" title="Editer les informations"><i class="fas fa-edit"></i></a>
-
+                 
+                 <a href="formulaireUpdate/{{$row['id']}}"  class="btn btn-success" style="color: rgb(233, 231, 238);" role="button" title="Editer les informations"><i class="fas fa-edit"></i></a>
                  <a  href="#" onclick="return confirm('Voulez vous supprimmer ce documment ?')" title="Supprimer" class="btn btn-danger" style="color: rgb(233, 231, 238);" ><i class="fas fa-trash"></i></a>
           
                 </div>
@@ -86,14 +85,18 @@
             <td>{{$row['heure_debut']}}</td>
             <td>{{$row['heure_fin']}}</td>
             <td>{{$row['nom']}}</td>
+            
+            
+
+
            
             
            
             <td>
                 <div class="gap-2 d-md-flex ">
                 
-                 <a href="datailsCandidat/{{$row['id']}}" class="btn btn-info" style="color: rgb(233, 231, 238);" role="button" title="Details"><i class="fas fa-file-alt"></i>  </a>
-                 <a href="{{ route('seances.edit',$row->id) }}"  class="btn btn-success" style="color: rgb(233, 231, 238);" role="button" title="Editer les informations"><i class="fas fa-edit"></i></a>
+                 
+                 <a href="formulaireUpdate/{{$row['id']}}"  class="btn btn-success" style="color: rgb(233, 231, 238);" role="button" title="Editer les informations"><i class="fas fa-edit"></i></a>
                  <a  href="#" onclick="return confirm('Voulez vous supprimmer ce documment ?')" title="Supprimer" class="btn btn-danger" style="color: rgb(233, 231, 238);" ><i class="fas fa-trash"></i></a>
           
                 </div>
@@ -135,8 +138,8 @@
             <td>
                 <div class="gap-2 d-md-flex ">
                 
-                 <a href="datailsCandidat/{{$row['id']}}" class="btn btn-info" style="color: rgb(233, 231, 238);" role="button" title="Details"><i class="fas fa-file-alt"></i>  </a>
-                 <a href="{{ route('seances.edit',$row->id) }}"  class="btn btn-success" style="color: rgb(233, 231, 238);" role="button" title="Editer les informations"><i class="fas fa-edit"></i></a>
+                 
+                 <a href="formulaireUpdate/{{$row['id']}}"  class="btn btn-success" style="color: rgb(233, 231, 238);" role="button" title="Editer les informations"><i class="fas fa-edit"></i></a>
                  <a  href="#" onclick="return confirm('Voulez vous supprimmer ce documment ?')" title="Supprimer" class="btn btn-danger" style="color: rgb(233, 231, 238);" ><i class="fas fa-trash"></i></a>
           
                 </div>
@@ -175,9 +178,20 @@
                         <h4>Informations personnelles</h4>
                        
                     <div class="col-12 ">
-                        <label for="cin" class=" col-sm-1 col-form-label"><h5>Jour</h5></label>
-                       
-                        <input type="date" name="jour" id="jour"  class="form-control " required>
+                        {{-- <label for="cin" class=" col-sm-1 col-form-label"><h5>Jour</h5></label>
+                        
+                        <input type="text" name="jour" id="jour"  class="form-control " required> --}}
+                        <select class="form-select" name="jour" aria-label="Default select example">
+                            <option selected>Faites votre choix</option>
+                            <option value="Lundi">lundi</option>
+                            <option value="Mardi">mardi</option>
+                            <option value="Mercredi">mercredi</option>
+                            <option value="Jeudi">jeudi</option>
+                            <option value="Vendredi">vendredi</option>
+                            <option value="Samedi">samedi</option>
+                            <option value="Dimanche">dimanche</option>
+
+                          </select>
                         <span style="color:red;">@error ('cin') {{$message}} @enderror</span>
                     </div>
                    <div class="row">
@@ -214,7 +228,7 @@
                     <div class="col-12 form-group">
                         <label for="type_seance" class="control-label  col-form-label"><h5>Type seance</h5></label>
                         
-                        <select name="type_seance" class="form-control">
+                        <select name="type_seance" class="form-control" aria-label="Default select example">
                           
                             <option value="0">Faites votre choix</option>
                             <option value="séance_théorique">séance théorique</option>

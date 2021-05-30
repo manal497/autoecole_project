@@ -25,7 +25,7 @@ class Assister extends Migration
             
             $table->unsignedBigInteger('id_seance');
             $table->foreign('id_seance')
-                ->references('id_seance')
+                ->references('id')
                 ->on('seances')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

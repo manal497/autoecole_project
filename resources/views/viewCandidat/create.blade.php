@@ -1,4 +1,4 @@
-@extends('viewCandidat.layoutGestionCandidat')
+@extends('layout.layoutGestionCandidat')
 @section('contentCandidat')
 
 <style>
@@ -47,7 +47,7 @@
 {{ Session::get('failUpdate')}}
 </div>
 @endif
-
+ <div class="container">
 <div class="card-header">
   <div class="row align-items-center">
       <div class="col-md-8">
@@ -55,6 +55,7 @@
       </div>
   </div>
 </div><br>
+  
   <div>
     <input type="text" id="myInput" name="myInput" placeholder="Rechercher..." class="form-control">
   </div><br><br>
@@ -63,16 +64,16 @@
                
    </div><br>
        
-    <div>
+    <div class="container">
         <table border='1' class="table table-striped">
           <thead>
             <tr>
-                <td>CIN</td>
-                <td>Nom</td>
-                <td>Prenom</td>
-                <td>Type permis</td>
-                <td>Photo</td>
-                <td>Operations</td>
+                <td><h5>CIN</h5></td>
+                <td><h5>Nom</h5></td>
+                <td><h5>Prenom</h5></td>
+                <td><h5>Type permis</h5></td>
+                <td><h5>Téléphone</h5></td>
+                <td><h5>Operations</h5></td>
             </tr>
           </thead>
             <tbody id="myTable">
@@ -85,13 +86,14 @@
            
             <td>{{$row['type_permis']}}</td>
            
-             <td><img src="{{asset('images/documents/'.$row['photo'])}}" style="height: :50px; width:70px" alt="pas de photo"> </td>
+             <td>{{$row['telephone']}}</td>
             <td>
                 <div class="gap-2 d-md-flex ">
                 
                  <a href="datailsCandidat/{{$row['cin_candidat']}}" class="btn btn-info" style="color: rgb(233, 231, 238);" role="button" title="Details"><i class="fas fa-file-alt"></i>  </a>
                  <a href="formulaireUpdate/{{$row['cin_candidat']}}"  class="btn btn-success" style="color: rgb(233, 231, 238);" role="button" title="Editer les informations"><i class="fas fa-edit"></i></a>
-                 <a class=" addReservetion btn btn-secondary"  title="Ajouter une réservation" style="color: rgb(233, 231, 238);" data-toggle="modal" data-idUpdate="'.$row->cin_candidats.'" data-target="#addRes"><i class="fas fa-money-check-alt"></i></a>
+                 <a class="ajouterReservation btn btn-secondary"  title="Ajouter une réservation" style="color: rgb(233, 231, 238);" data-bs-toggle="modal" data-bs-idUpdate="'.$row->cin_candidats.'" data-bs-target="#addRes"><i class="fas fa-money-check-alt"></i></a>
+                <a class="ajouterDocument btn btn-primary"  title="Ajouter les documents" style="color: rgb(233, 231, 238);" data-bs-toggle="modal" data-bs-idUpdate="'.$row->cin_candidats.'" data-bs-target="#addDocument"><i class="fas fa-file-alt"></i></a>
                  <a  href="#" onclick="return confirm('Voulez vous supprimmer ce documment ?')" title="Supprimer" class="btn btn-danger" style="color: rgb(233, 231, 238);" ><i class="fas fa-trash"></i></a>
           
                 </div>
@@ -104,17 +106,126 @@
     </div>
 </div>
 
-<!-----------------------------------------ajouter reservation----------------------------------->
+<div>
+<div class="modal fade" id="addDocument" tabindex="-1" role="dialog" style="z-index: 1050; display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-write">
+                <h4 class="modal-title">Ajouter les documents</h4>
+          
+                <button  class="close" data-bs-target="#addDocument" data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">    <i class="fas fa-times" aria-hidden="true"></i></span>
+                </button>
+            </div>
 
+           
+
+            <form action="{{route('ajoutDocumments')}}" method="POST" class="row g-3 container needs-validation" enctype="multipart/form-data">
+   
+                @csrf
+                 
+                <input type="text" hidden class="col-sm-9 form-control" id ="idAddDoc" name ="idAddDoc" value="" />
+                <div class="modal-body container">
+                   
+                  <div class="col-12 ">
+                        <label for="cin" class=" col-sm-1 col-form-label"><h5>CIN</h5></label>
+                       
+                        <input type="text" name="cin" id="cin" placeholder="C123456" class="form-control " readonly>
+                        <span style="color:red;">@error ('cin') {{$message}} @enderror</span>
+                    </div>
+                       <div class=" row">
+                         <div class="col-md-6">
+                           <div class="mb-3">
+                             <label for="photo" class="form-label"> <h5> Photo </h5> </label>
+                             <input class="form-control" type="file" name="photo" id="photo" accept=".jpg,.jpeg,.png">
+                           </div>
+                         </div>
+                       
+                         <div class="col-md-6">
+                           <div class="mb-3">
+                             <label for="demmande" class="form-label"><h5>Demmande etablit</h5></label>
+                         
+                             <input class="form-control" type="file" name="demmande" id="demmande" accept=".pdf">
+                         </div>
+                     </div>
+                   </div>
+                 
+                   <div class=" row">
+                     <div class="col-md-6">
+                       <div class="mb-3">
+                         <label for="carteVerso" class="form-label"><h5>Carte nationale verso</h5></label>
+                         <input class="form-control" type="file" name="carteVerso" id="carteVerso" accept=".pdf">
+                       </div>
+                     </div>
+                   
+                     <div class="col-md-6">
+                       <div class="mb-3">
+                         <label for="carteRecto" class="form-label"><h5>Carte nationale recto</h5></label>
+                     
+                         <input class="form-control" type="file" name="carteRecto" id="carteRecto" accept=".pdf">
+                       </div>
+                      </div>
+                   </div>
+                 
+                 
+                 <div class=" row">
+                   <div class="col-md-6">
+                     <div class="mb-3">
+                       <label for="permis" class="form-label"><h5>Permis</h5></label>
+                       <input class="form-control" type="file" name="permis" id="permis" accept=".pdf">
+                     </div>
+                   </div>
+                 
+                   <div class="col-md-6">
+                     <div class="mb-3">
+                       <label for="certificatMed" class="form-label"><h5>Certificat médicale</h5></label>
+                   
+                       <input class="form-control" type="file" name="certificatMed" id="certificatMed" accept=".pdf">
+                     </div>
+                   </div>
+                 </div>
+                    
+                 <div class=" row">
+                   <div class="col-md-6">
+                     <div class="mb-3">
+                       <label for="recuPayer" class="form-label"><h5>Recu paiement</h5></label>
+                       <input class="form-control" type="file" name="recuPayer" id="recuPayer" accept=".pdf">
+                     </div>
+                   </div>
+                 
+                   <div class="col-md-6">
+                     <div class="mb-3">
+                       <label for="attestationFin" class="form-label"> <h5> Attestation fin de formation </h5></label>
+                   
+                       <input class="form-control" type="file" name="attestationFin" id="attestationFin" accept=".pdf">
+                     </div>
+                   </div>
+                 </div>
+                   
+                    
+                 
+                <div class="modal-footer">
+                   
+                     <button type="submit" id="add" name="add" class="btn btn-success  waves-light" onclick="errorMessage()">Ajouter</button>
+                      <button type="button" class="btn btn-danger" class="close" data-bs-target="#addDoc" data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Close">Fermer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+</div>
+<!-----------------------------------------ajouter reservation----------------------------------->
+<div>
 <div class="modal fade" id="addRes" tabindex="-1" role="dialog" style="z-index: 1050; display: none;" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header text-write">
                 <h4 class="modal-title">Ajouter une résérvation</h4>
           
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none;">
-                  <i class="fas fa-times"></i>
-              </button>
+            <button  class="close" data-bs-target="#addRes" data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">    <i class="fas fa-times" aria-hidden="true"></i></span>
+                </button>
             </div>
             <form action="{{route('ajoutReservation')}}" method="POST" >
    
@@ -170,31 +281,31 @@
                 </div>
                 <div class="modal-footer">
                    
-                    <button type="submit" id="add" name="add" class="btn btn-success  waves-light" onclick="errorMessage()">Ajouter</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close"> Fermer</button>
+                    <button type="submit" id="addres" name="addres" class="btn btn-success  waves-light" onclick="errorMessage()">Ajouter</button>
+                      <button type="button" class="btn btn-danger" class="close" data-bs-target="#addRes" data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Close">Fermer</button>
+         
                 </div>
             </form>
         </div>
     </div>
 
 </div>
+</div>
 
 <!-- ----------------------------------------model pour ajouter un candidat-------------------------------------------->
-
+<div>
 <div class="modal fade" id="addCandidat" tabindex="-1" role="dialog" style="z-index: 1050; display: none;" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header text-write">
                 <h4 class="modal-title">Ajouter un candidat</h4>
           
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none;">
-                    <i class="fas fa-times"></i>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"> <i class="fas fa-times" aria-hidden="true" style="background-color:with;"></i></span>
                 </button>
             </div>
 
-           
-
-            <form action="{{route('ajoutCandidat')}}" method="POST" class="row g-3 container needs-validation" enctype="multipart/form-data">
+            <form action="{{route('ajoutCandidat')}}" method="POST" class="row g-3 container needs-validation">
    
                 @csrf
                  
@@ -298,91 +409,22 @@
                     </div>
                        <!-- <input type="text" name="typepermis" id="typepermis" placeholder="Selectionner le le type du permis">
                        -->
-                       <hr>
-                       <h3>Documents </h3>
-                       
-                       <div class=" row">
-                         <div class="col-md-6">
-                           <div class="mb-3">
-                             <label for="formFile" class="form-label"> <h5> Photo </h5> </label>
-                             <input class="form-control" type="file" name="photo" id="photo" accept=".jpg,.jpeg,.png">
-                           </div>
-                         </div>
-                       
-                         <div class="col-md-6">
-                           <div class="mb-3">
-                             <label for="carteRecto" class="form-label"><h5>Demmande etablit</h5></label>
-                         
-                             <input class="form-control" type="file" name="demmande" id="demmande" accept=".pdf">
-                         </div>
-                     </div>
-                   </div>
-                 
-                   <div class=" row">
-                     <div class="col-md-6">
-                       <div class="mb-3">
-                         <label for="formFile" class="form-label"><h5>Carte nationale verso</h5></label>
-                         <input class="form-control" type="file" name="carteVerso" id="carteVerso" accept=".pdf">
-                       </div>
-                     </div>
-                   
-                     <div class="col-md-6">
-                       <div class="mb-3">
-                         <label for="carteRecto" class="form-label"><h5>Carte nationale recto</h5></label>
-                     
-                         <input class="form-control" type="file" name="carteRecto" id="carteRecto" accept=".pdf">
-                       </div>
-                      </div>
-                   </div>
-                 
-                 
-                 <div class=" row">
-                   <div class="col-md-6">
-                     <div class="mb-3">
-                       <label for="formFile" class="form-label"><h5>Permis</h5></label>
-                       <input class="form-control" type="file" name="permis" id="permis" accept=".pdf">
-                     </div>
-                   </div>
-                 
-                   <div class="col-md-6">
-                     <div class="mb-3">
-                       <label for="carteRecto" class="form-label"><h5>Certificat médicale</h5></label>
-                   
-                       <input class="form-control" type="file" name="certificatMed" id="certificatMed" accept=".pdf">
-                     </div>
-                   </div>
-                 </div>
                     
-                 <div class=" row">
-                   <div class="col-md-6">
-                     <div class="mb-3">
-                       <label for="formFile" class="form-label"><h5>Recu paiement</h5></label>
-                       <input class="form-control" type="file" name="recuPayer" id="recuPayer" accept=".pdf">
-                     </div>
-                   </div>
-                 
-                   <div class="col-md-6">
-                     <div class="mb-3">
-                       <label for="carteRecto" class="form-label"> <h5> Attestation fin de formation </h5></label>
-                   
-                       <input class="form-control" type="file" name="attestationFin" id="attestationFin" accept=".pdf">
-                     </div>
-                   </div>
-                 </div>
-                   
-                    
-                 
                 <div class="modal-footer">
                    
-                    <button type="submit" id="add" name="add" class="btn btn-success  waves-light" title="Ajouter un candidat" onclick="errorMessage()">Ajouter</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close" title="Fermer"> Fermer</button>
+                     <button type="submit" id="add" name="add" class="btn btn-success  waves-light" onclick="errorMessage()">Ajouter</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close"> Fermer</button>
                 </div>
             </form>
         </div>
     </div>
 
 </div>
+</
+<div>
+  <!-- ------------------------------------modl documents---------------------------------->
 
+<!-- ----------------------------------------model pour ajouter un candidat-------------------------------------------->
 
 <script>
     var form=document.querySelector('.needs-validation');
@@ -395,10 +437,28 @@
     })
 </script>
 
+
 <script>
   
     $(document).ready(function(){
-    $('.addReservetion').on('click', function(){
+    $('.ajouterDocument').on('click', function(){
+    $('#addDocument').modal('show');
+    $tr=$(this).closest('tr');
+    var data=$tr.children("td").map(function(){
+    return $(this).text();
+    }).get();
+    console.log(data); 
+   
+    $('#cin').val(data[0]);
+   
+    })
+    })
+    </script>
+
+<script>
+  
+    $(document).ready(function(){
+    $('.ajouterReservation').on('click', function(){
     $('#addRes').modal('show');
     $tr=$(this).closest('tr');
     var data=$tr.children("td").map(function(){
@@ -408,10 +468,10 @@
    
     $('#cinRes').val(data[0]);
    
-    })
-    })
+    });
+    });
     </script>
-
+<!--script du recherche--------------->s
 <script>
 	$(document).ready(function(){
    $("#myInput").on("keyup",function(){

@@ -1,4 +1,4 @@
-@extends('viewCandidat.layoutGestionCandidat')
+@extends('layout.layoutGestionCandidat')
 @section('contentCandidat')
 <style>
 
@@ -12,13 +12,48 @@
   }
   
   </style>
+  
+@if(Session::get('successUpdateD'))
+<div>  
+{{ Session::get('successUpdateD')}}
+</div>
+@endif
+@if(Session::get('failUpdateD'))
+<div>  
+{{ Session::get('failUpdateD')}}
+</div>
+@endif
+
+@if(Session::get('successUpdateR'))
+<div>  
+{{ Session::get('successUpdateR')}}
+</div>
+@endif
+@if(Session::get('failUpdateR'))
+<div>  
+{{ Session::get('failUpdateR')}}
+</div>
+@endif
+
+@if(Session::get('successUpdateI'))
+<div>  
+{{ Session::get('successUpdateI')}}
+</div>
+@endif
+@if(Session::get('failUpdateI'))
+<div>  
+{{ Session::get('failUpdateI')}}
+</div>
+@endif
+
+
 <div class="container">
 
 
 
 <h3>La modification des données</h3>
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <a href="{{route('candidatlist')}}" class=" btn btn-primary me-md-2"  title="Revenir à la liste des candidats" style="color: rgb(233, 231, 238);" ><i class="fas fa-angle-left" style="margin-right:10px;"></i>Rotour</a>
+    <a href="{{route('candidatlist')}}" class=" btn btn-primary me-md-2"  title="Revenir à la liste des candidats" style="color: rgb(233, 231, 238);" ><i class="fas fa-angle-left" style="margin-right:10px;"></i>Retour</a>
                
    </div><br>
 <div class="card" >
@@ -47,7 +82,7 @@
            
           </div>
           <div class="col-md-6">
-            <label for="prenom" class="col-sm-1 col-form-label"><h5>Prénom</h5></label>
+            <label for="prenom" class="control-label col-form-label"><h5>Prénom</h5></label>
       
             <input type="text" name="prenom" id="prenom"  placeholder="Entrer le prénom" class="form-control" value="{{$dataCandidatUpdate->prenom}}" class=" form-control" required>
             <span style="color:red;">@error ('prenom') {{$message}} @enderror</span>
@@ -110,7 +145,7 @@
       
        
         <div class="col-12 form-group" style="padding-bottom: 10px">
-            <label for="typrpermis"  class="control-label  col-form-label"><h5> Type permis</h5></label>
+            <label for="typepermis"  class="control-label  col-form-label"><h5> Type permis</h5></label>
             
             <select name="typepermis" class="form-control" value="{{$dataCandidatUpdate->type_permis}}">
               
@@ -147,7 +182,9 @@
     <td>date</td>
     <td>Montant</td>
     <td>Reste</td>
-    <td>Periode</td>
+    <td>Heures Totales</td>
+    <td>Reste Heures </td>
+    <td>Type Permis</td>
     <td>Editer</td>
   </tr>
   @foreach ($dataReservationUpdate as $row)
@@ -155,9 +192,11 @@
   <td>{{$row['date_reservation']}}</td>
   <td>{{$row['montant_payee']}}</td>
   <td>{{$row['reste']}}</td>
-  <td>{{$row['periode']}}</td>
+  <td>{{$row['heures_etudes']}}</td>
+  <td>{{$row['reste_heures']}}</td>
+  <td>{{$row['typePermis']}}</td>
   <td>
-    <a class=" updateReservetions btn btn-success"  title="Modifier une réservation" style="color: rgb(233, 231, 238);" data-toggle="modal" data-idUpdate="'.$row->id_reservation.'" data-target="#updateReservation"><i class="fas fa-edit"></i></a>  
+    <a class=" updateReservetions btn btn-success" style="color: rgb(233, 231, 238);"  title="Modifier une réservation" style="color: rgb(233, 231, 238);" data-bs-toggle="modal" data-bs-idUpdate="'.$row->id_reservation.'" data-bs-target="#updateRes"><i class="fas fa-edit"></i></a>  
   </td>
 </tr>
   @endforeach
@@ -168,7 +207,7 @@
 
 <br>
 <div class="col">
-<div class="card"  >
+<div class="card">
   <div class="card-body table-responsive">
     <h4 class="card-title">Documments</h4>
       <table border='1' class="table table-striped ">
@@ -202,7 +241,7 @@
         <td>{{$row['demmande_etablit']}}</td>
         <td>{{$row['attestation_fin_formation']}}</td>
         <td>
-            <a class="nav-link candidatEdits btn btn-success"  title="modifier" style="color: brown;" data-toggle="modal" data-idUpdate="'.$row1->id_dossier.'" data-target="#DocUpdate"><i class="fas fa-edit"></i></a>
+            <a class="nav-link candidatEdits btn btn-success" style="color: rgb(233, 231, 238);"  title="modifier" style="color: brown;" data-bs-toggle="modal" data-bs-idUpdate="'.$row1->id_dossier.'" data-bs-target="#DocUpdate"><i class="fas fa-edit"></i></a>
           
         </td>
         </tr>
@@ -213,18 +252,112 @@
 </div>
 </div></div></div>
 
+<div>
+<div class="modal fade" id="updateRes" tabindex="-1" role="dialog" style="z-index: 1050; display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-write">
+                <h4 class="modal-title">Modifier la résérvation</h4>
+          
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="border: none;">
+                  <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <form action="{{route('updateResCandidat')}}" method="POST" >
+                {{ method_field('PUT')}}
+                @csrf
+                
+                <input type="text" hidden class="col-sm-9 form-control" id ="idUpdate" name ="idUpdate" value="" />
+                <div class="modal-body">
+                   
+                   <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">#</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="idRes" name="idRes" class="form-control"   required/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">CIN</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="cinRes" name="cinRes" class="form-control" value="{{$cin}}"  readonly/>
+                        </div>
+                    </div>
+                     <div class="form-group row">
+                        <label for="date" class="col-sm-3 col-form-label">Date Réservation</label>
+                            <div class="col-sm-9">
+                              <input type="date" name="date" id="date" class="form-control" required>
+                            </div>
+                        
+                    </div>
+                    <div class="form-group row">
+                        <label for="prix" class="col-sm-3 col-form-label">Montant</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="prix" id="prix" class="form-control" required>
+                       
+                        </div>
+                    </div>
+                     <div class="form-group row">
+                        <label for="prix" class="col-sm-3 col-form-label">Reste</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="reste" id="reste" class="form-control" required>
+                       
+                        </div>
+                    </div>
+                   
+                    <div class="form-group row">
+                        <label for="periode" class="col-sm-3 col-form-label">Heures totale</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="periode" id="periode" class="form-control  custom-file-input" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="periode" class="col-sm-3 col-form-label">Reste des heures</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="periode_reste" id="periode_reste" class="form-control  custom-file-input" required>
+                        </div>
+                    </div>
+                      <div class="row form-group">
+                        <label for="type" class="col-sm-3 col-form-label">Type permis</label>
+                        <div class="col-sm-9">
+                        <select name="type" id="type" class="form-control">
+                          
+                            <option value="0">Faites votre choix</option>
+                            <option value="A">A</option>
+                            <option value="A1">A1</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="EB">EB</option>
+                            <option value="EC">EC</option>
+                            <option value="ED">ED</option>
+                        </select>
+                        </div>
+                    </div>
+                   
+                   
+                </div>
+                <div class="modal-footer">
+                   
+                    <button type="submit" id="updateres" name="updateres" class="btn btn-success  waves-light" onclick="errorMessage()">Modifier</button>
+                    <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close"> Fermer</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-
+</div>
+</div>
 <!-------------documments-->
-
+<div>
 <div class="modal fade" id="DocUpdate" tabindex="-1" role="dialog" style="z-index: 1050; display: none;" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header text-write">
                 <h4 class="modal-title">Modification des données</h4>
           
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><i class="fa " aria-hidden="true"></i></span>
+               <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+         
+                    <i class="fas fa-times" aria-hidden="true"></i>
                 </button>
             </div>
             <div class="modal-body">
@@ -244,40 +377,41 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">CIN</label>
                         <div class="col-sm-9">
-                            <input type="text" id="cin" name="cin" class="form-control" value="" />
+                            <input type="text" id="cin" name="cin" class="form-control" value="{{$cin}}" readonly
+                            />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="photo" class="col-sm-3 col-form-label">Photo</label>
                         <div class="col-sm-9">
-                            <input type="file" name="photo" id="photo" class="form-control" >
+                            <input type="file" name="photo" id="photo" class="form-control" accept=".jpg,.jpeg,.png">
                        
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="carteRecto" class="col-sm-3 col-form-label">Carte nationale recto</label>
                             <div class="col-sm-9">
-                              <input type="file" name="carteRecto" id="carteRecto" class="form-control  custom-file-input" >
+                              <input type="file" name="carteRecto" id="carteRecto" class="form-control  custom-file-input" accept=".pdf">
                             </div>
                         
                     </div>
                     <div class="form-group row">
                         <label for="carteVerso" class="col-sm-3 col-form-label">Carte nationale Verso</label>
                         <div class="col-sm-9">
-                            <input type="file" name="carteVerso" id="carteVerso" class="form-control  custom-file-input">
+                            <input type="file" name="carteVerso" id="carteVerso" class="form-control  custom-file-input" accept=".pdf">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="certificatMed" class="col-sm-3 col-form-label">Certificat médical</label>
                         <div class="col-sm-9">
-                            <input type="file" name="certificatMed" id="certificatMed" class="form-control  custom-file-input">
+                            <input type="file" name="certificatMed" id="certificatMed" class="form-control  custom-file-input" accept=".pdf">
                    
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="permis" class="col-sm-3 col-form-label">Permis</label>
                         <div class="col-sm-9">
-                            <input type="file" name="permis" id="permis" class="form-control  custom-file-input">
+                            <input type="file" name="permis" id="permis" class="form-control  custom-file-input" accept=".pdf">
                         
                         </div>
                     </div>
@@ -285,14 +419,14 @@
                         <label for="recuPayer" class="col-sm-3 col-form-label">Recu paiement</label>
                         <div class="col-sm-9">
                            
-                            <input type="file" name="recuPayer" id="recuPayer" class="form-control  custom-file-input">
+                            <input type="file" name="recuPayer" id="recuPayer" class="form-control  custom-file-input" accept=".pdf">
                           
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="demmande" class="col-sm-3 col-form-label">Demmande</label>
                         <div class="col-sm-9">
-                            <input type="file" name="demmande" id="demmande" class="form-control  custom-file-input">
+                            <input type="file" name="demmande" id="demmande" class="form-control  custom-file-input" accept=".pdf">
                        
                         </div>
                     </div>
@@ -300,21 +434,21 @@
                         <label for="attestationFin" class="col-sm-3 col-form-label">Attestation fin de formation</label>
                         <div class="col-sm-9">
                       
-                           <input type="file" name="attestationFin" id="attestationFin" class="form-control  custom-file-input">
+                           <input type="file" name="attestationFin" id="attestationFin" class="form-control  custom-file-input" accept=".pdf">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                    
                     <button type="submit" id="update" name="update" class="btn btn-success  waves-light" onclick="errorMessage()">Modifier</button>
-                    <button type="submit" class="btn btn-danger" data-dismiss="modal" aria-label="Close"> Fermer</button>
+                    <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close"> Fermer</button>
                 </div>
             </form><!-- form delete end -->
         </div>
     </div>
 
 </div>
-
+</div>
 <script>
 // select edit user
 
@@ -347,18 +481,21 @@ $('#attestationFin').val(data[9]);
   
     $(document).ready(function(){
     $('.updateReservetions').on('click', function(){
-    $('#updateReservation').modal('show');
+    $('#updateRes').modal('show');
     $tr=$(this).closest('tr');
     var data=$tr.children("td").map(function(){
     return $(this).text();
     }).get();
     console.log(data); 
   
-   $('#id').val(data[0]);
-   $('#prix').val(data[2]);
+   $('#idRes').val(data[0]);
    $('#date').val(data[1]);
-   $('#periode').val(data[4]);
-    $('#reste').val(data[3]);
+   $('#prix').val(data[2]);
+   $('#reste').val(data[3]);
+    $('#periode').val(data[4]);
+     $('#periode_reste').val(data[5]);
+    $('#type').val(data[6]);
+   
     })
     })
     </script>

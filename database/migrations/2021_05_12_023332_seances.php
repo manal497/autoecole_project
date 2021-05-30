@@ -14,7 +14,7 @@ class Seances extends Migration
     public function up()
     {
         Schema::create('seances', function (Blueprint $table) {
-            $table->bigIncrements('id_seance');
+            $table->bigIncrements('id');
             $table->string('type_seance');
 
             $table->time('heure_debut');
@@ -23,7 +23,7 @@ class Seances extends Migration
               
             $table->unsignedBigInteger('id_moniteur');
             $table->foreign('id_moniteur')
-                ->references('id_moniteur')
+                ->references('id')
                 ->on('moniteurs')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

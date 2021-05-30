@@ -14,7 +14,7 @@ class Utilisateurs extends Migration
     public function up()
     {
         Schema::create('utilisateurs', function (Blueprint $table) {
-            $table->bigIncrements('id_user');
+            $table->bigIncrements('id');
             $table->string('cin')->unique();
             $table->string('nom');
             $table->string('prenom');

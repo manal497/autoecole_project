@@ -24,7 +24,7 @@ class Affecter extends Migration
       
                 $table->unsignedBigInteger('id_moniteur');
                 $table->foreign('id_moniteur')
-                    ->references('id_moniteur')
+                    ->references('id')
                     ->on('moniteurs')
                     ->onDelete('cascade')
                     ->onUpdate('cascade');

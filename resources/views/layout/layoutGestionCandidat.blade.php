@@ -51,10 +51,11 @@
             <a href="{{route('candidatlist')}}" class="nav-link text-light pl-4"><i class="fas fa-user" style="margin-right:10px;"></i>Candidats</a>
          </li>
         <li class="nav-item w-100">
-              <a href="#" class="nav-link text-light pl-4"><i class="fas fa-file-invoice-dollar" style="margin-right:10px;"></i>Facturations</a>
+              <a href="{{route('listRes')}}" class="nav-link text-light pl-4"><i class="fas fa-file-invoice-dollar" style="margin-right:10px;"></i>Facturations</a>
         </li>
         <li class="nav-item w-100">
-            <a href="#" class="nav-link text-light pl-4"><i class="fas fa-user-tie" style="margin-right:10px;"></i>Moniteurs</a>
+            
+            <a href="{{route('listeMoniteurs')}}" class="nav-link text-light pl-4"><i class="fas fa-user-tie" style="margin-right:10px;"></i>Moniteurs</a>
         </li>
         <li class="nav-item w-100">
             <a href="{{route('seances.index')}}" class="nav-link text-light pl-4"><i class="fas fa-book-reader" style="margin-right:10px;"></i>Séances</a>
