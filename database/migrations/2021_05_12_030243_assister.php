@@ -13,18 +13,18 @@ class Assister extends Migration
      */
     public function up()
     {
-        Schema::create('assister', function (Blueprint $table) {
-            $table->bigIncrements('id_assister');
+        Schema::create('assisters', function (Blueprint $table) {
+            $table->bigIncrements('id');
         $table->string('effectuee')->default('Non');
-            $table->string('cin_candidat');
-            $table->foreign('cin_candidat')
-                ->references('cin_candidat')
+            $table->unsignedBigInteger('candidat_id');
+            $table->foreign('candidat_id')
+                ->references('id')
                 ->on('candidats')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             
-            $table->unsignedBigInteger('id_seance');
-            $table->foreign('id_seance')
+            $table->unsignedBigInteger('seance_id');
+            $table->foreign('seance_id')
                 ->references('id')
                 ->on('seances')
                 ->onDelete('cascade')
@@ -40,6 +40,6 @@ class Assister extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assister');
+        Schema::dropIfExists('assisters');
     }
 }

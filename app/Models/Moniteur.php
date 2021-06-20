@@ -14,4 +14,14 @@ class Moniteur extends Model
         'id','cin_moniteur','nom','prenom','adresse','telephone','date_naissance','lieu_naissance',
         'numero_permis','sexe','type_moniteur',
     ];
+
+    public function seances()
+    {
+        return $this->hasMany(Seance::class);
+    }
+
+    public function vehicules()
+    {
+        return $this->belongsToMany(Vehicule::class, 'affectations');
+    }
 }

@@ -22,7 +22,7 @@ class updateCandidat extends Controller
 
         $dataCandidatUpdate= Candidat::get()->where('cin_candidat',$cin)->first();
         $dataReservationUpdate=Reservation::get()->where('cin_candidat',$cin);
-        $dataDocUpdate=Document::get()->where('cin_candidat',$cin);
+        $dataDocUpdate=Document::get()->where('cin_candidat',$cin)->last();
         return view('viewCandidat.updateInfoCandidat',compact('dataCandidatUpdate','dataReservationUpdate','dataDocUpdate','cin'));
        }
 //-----------------------------------------la modification  des informations-------------------------------//

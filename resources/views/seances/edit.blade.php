@@ -1,4 +1,4 @@
-@extends('viewCandidat.layoutGestionCandidat')
+@extends('layout.layoutGestionCandidat')
 @section('contentCandidat')
 
 <style>
@@ -19,19 +19,16 @@
 
 <h3>La modification des données</h3>
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <a href="{{route('candidatlist')}}" class=" btn btn-primary me-md-2"  title="Revenir à la liste des candidats" style="color: rgb(233, 231, 238);" ><i class="fas fa-angle-left" style="margin-right:10px;"></i>Rotour</a>
+    <a href="{{route('seances.index')}}" class=" btn btn-primary me-md-2"  title="Revenir à la liste des candidats" style="color: rgb(233, 231, 238);" ><i class="fas fa-angle-left" style="margin-right:10px;"></i>Rotour</a>
                
    </div><br>
 <div class="card" >
   <div class="card-body">
     <h4 class="card-title">Informations personnelles</h4>
 
-<form class="row g-3" method="POST" action="{{ route('seances.update',$seance->id) }}"> 
-  {{ method_field('PUT')}}
+<form class="row g-3"  action="{{route('seances.update',$seance->id)}}" method="POST"> 
   @csrf
-  
-    <input type="text" hidden class="col-sm-9 form-control" id ="idAdd" name ="idAdd" value="" />
-    <div class="container">
+  @method('PUT')
                     
                 
                         
@@ -58,15 +55,22 @@
                       
  
                      </div>
-                     <div class="row">
+                     <div class="col-12 form-group">
+                     
+                                       
+
+                      <label for="moniteur_id" class="control-label  col-form-label"><h5>Moniteur</h5></label>
                       
-                                        
-                         <label for="id_moniteur" class="control-label  col-form-label"><h5>Moniteur</h5></label>
-                         
-                         <input type="hidden" name="id_moniteur" id="id_moniteur"  class="form-control" value="1" required>
-                 
- 
-                     </div>
+                      <select name="moniteur_id" class="form-control">
+                          
+                        <option value="0">Faites votre choix</option>
+                        @foreach ($moniteurs as $row)
+                        <option value="{{$row['id']}}">{{$row['nom']}}</option>
+                        @endforeach
+                    </select>
+              
+
+                  </div>
                     
                    
                     

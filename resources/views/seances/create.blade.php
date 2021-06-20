@@ -17,9 +17,17 @@
 </div><br>
  
    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <a class=" AddSection btn btn-primary me-md-2"  title="Ajouter une seance" style="color: rgb(233, 231, 238);" data-toggle="modal"  data-target="#addSection"><i class="fas fa-plus" style="margin-right:10px;"></i>Ajouter</a>           
+    <a class=" AddSection btn btn-primary me-md-2"  title="Ajouter une seance" style="color: rgb(233, 231, 238);" data-toggle="modal"  data-target="#addSection"><i class="fas fa-plus" style="margin-right:10px;"></i>Ajouter</a> 
+    <a href="{{ route('assisters.create') }}" class=" AddSection btn btn-primary me-md-2"  title="Ajouter une assister" style="color: rgb(233, 231, 238);"  style="margin-right:10px;"></i>Assister</a> 
+    
    </div>
    <br>
+   <div>
+    <input type="text" id="myInput" name="myInput" placeholder="Rechercher..." class="form-control">
+  </div>
+  <br>
+
+
        
     <div>
     <h4>Séance Théorique</h4>
@@ -42,18 +50,21 @@
             <td>{{$row['jour']}}</td>
             <td>{{$row['heure_debut']}}</td>
             <td>{{$row['heure_fin']}}</td>
-            <td>{{$row['nom']}}</td>
+            <td>{{$row->moniteur->nom}}</td>
            
             
            
             <td>
                 <div class="gap-2 d-md-flex ">
                 
-                 <a href="datailsCandidat/{{$row['id']}}" class="btn btn-info" style="color: rgb(233, 231, 238);" role="button" title="Details"><i class="fas fa-file-alt"></i>  </a>
+                 <!---<a href="datailsCandidat/{{$row['id']}}" class="btn btn-info" style="color: rgb(233, 231, 238);" role="button" title="Details"><i class="fas fa-file-alt"></i>  </a>-->
                  <a href="{{ route('seances.edit',$row->id) }}"  class="btn btn-success" style="color: rgb(233, 231, 238);" role="button" title="Editer les informations"><i class="fas fa-edit"></i></a>
 
-                 <a  href="#" onclick="return confirm('Voulez vous supprimmer ce documment ?')" title="Supprimer" class="btn btn-danger" style="color: rgb(233, 231, 238);" ><i class="fas fa-trash"></i></a>
-          
+                 <form action="{{ route('seances.destroy',$row->id) }}" method="POST">
+                    @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                    </form>          
                 </div>
             </td>
             </tr>
@@ -64,7 +75,13 @@
     </div>
 </div>
 
+<br>
+<br>
 
+<div>
+    <input type="text" id="myInput1" name="myInput" placeholder="Rechercher..." class="form-control">
+  </div>
+  <br>
 <div>
 <h4>Séance Pratique</h4>
 
@@ -78,24 +95,28 @@
                 <td>Operations</td>
             </tr>
           </thead>
-            <tbody id="myTable">
+            <tbody id="myTable1">
             @foreach ($seancesb as $row)
                
             <tr>
             <td>{{$row['jour']}}</td>
             <td>{{$row['heure_debut']}}</td>
             <td>{{$row['heure_fin']}}</td>
-            <td>{{$row['nom']}}</td>
+            <td>{{$row->moniteur->nom}}</td>
            
             
            
             <td>
                 <div class="gap-2 d-md-flex ">
                 
-                 <a href="datailsCandidat/{{$row['id']}}" class="btn btn-info" style="color: rgb(233, 231, 238);" role="button" title="Details"><i class="fas fa-file-alt"></i>  </a>
+                 <!--<a href="datailsCandidat/{{$row['id']}}" class="btn btn-info" style="color: rgb(233, 231, 238);" role="button" title="Details"><i class="fas fa-file-alt"></i>  </a>-->
                  <a href="{{ route('seances.edit',$row->id) }}"  class="btn btn-success" style="color: rgb(233, 231, 238);" role="button" title="Editer les informations"><i class="fas fa-edit"></i></a>
-                 <a  href="#" onclick="return confirm('Voulez vous supprimmer ce documment ?')" title="Supprimer" class="btn btn-danger" style="color: rgb(233, 231, 238);" ><i class="fas fa-trash"></i></a>
-          
+                 <form action="{{ route('seances.destroy',$row->id) }}" method="POST">
+                    @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        
+                                    </form>          
                 </div>
             </td>
             </tr>
@@ -105,8 +126,13 @@
         </table>
     </div>
 </div>
+<br>
+<br>
 
-
+<div>
+    <input type="text" id="myInput2" name="myInput" placeholder="Rechercher..." class="form-control">
+  </div>
+  <br>
 <div>
 <h4>Séance Pratique Supplémentaire</h4>
 
@@ -121,24 +147,28 @@
                 <td>Operations</td>
             </tr>
           </thead>
-            <tbody id="myTable">
+            <tbody id="myTable2">
             @foreach ($seancesc as $row)
                
             <tr>
             <td>{{$row['jour']}}</td>
             <td>{{$row['heure_debut']}}</td>
             <td>{{$row['heure_fin']}}</td>
-            <td>{{$row['nom']}}</td>
+            <td>{{$row->moniteur->nom}}</td>
            
             
            
             <td>
                 <div class="gap-2 d-md-flex ">
                 
-                 <a href="datailsCandidat/{{$row['id']}}" class="btn btn-info" style="color: rgb(233, 231, 238);" role="button" title="Details"><i class="fas fa-file-alt"></i>  </a>
+                 <!--<a href="datailsCandidat/{{$row['id']}}" class="btn btn-info" style="color: rgb(233, 231, 238);" role="button" title="Details"><i class="fas fa-file-alt"></i>  </a>-->
                  <a href="{{ route('seances.edit',$row->id) }}"  class="btn btn-success" style="color: rgb(233, 231, 238);" role="button" title="Editer les informations"><i class="fas fa-edit"></i></a>
-                 <a  href="#" onclick="return confirm('Voulez vous supprimmer ce documment ?')" title="Supprimer" class="btn btn-danger" style="color: rgb(233, 231, 238);" ><i class="fas fa-trash"></i></a>
-          
+                 <form action="{{ route('seances.destroy',$row->id) }}" method="POST">
+                    @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger" ><i class="fas fa-trash"></i></button>
+                                    </form>
+                              
                 </div>
             </td>
             </tr>
@@ -197,12 +227,19 @@
                      
 
                     </div>
-                    <div class="row">
+                    <div class="col-12 form-group">
                      
                                        
-                        <label for="id_moniteur" class="control-label  col-form-label"><h5>Moniteur</h5></label>
+
+                        <label for="moniteur_id" class="control-label  col-form-label"><h5>Moniteur</h5></label>
                         
-                        <input type="hidden" name="id_moniteur" id="id_moniteur" class="form-control" value="1" required>
+                        <select name="moniteur_id" class="form-control">
+                          
+                            <option value="0">Faites votre choix</option>
+                            @foreach ($moniteurs as $row)
+                            <option value="{{$row['id']}}">{{$row['nom']}}</option>
+                            @endforeach
+                        </select>
                 
 
                     </div>
@@ -279,6 +316,31 @@
    $("#myInput").on("keyup",function(){
     var value = $(this).val().toLowerCase();
     $("#myTable tr").filter(function(){
+   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+
+    });
+
+   });
+
+	});
+
+    $(document).ready(function(){
+   $("#myInput1").on("keyup",function(){
+    var value = $(this).val().toLowerCase();
+    $("#myTable1 tr").filter(function(){
+   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+
+    });
+
+   });
+
+	});
+
+
+    $(document).ready(function(){
+   $("#myInput2").on("keyup",function(){
+    var value = $(this).val().toLowerCase();
+    $("#myTable2 tr").filter(function(){
    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
 
     });

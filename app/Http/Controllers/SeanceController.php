@@ -2,11 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Moniteur;
 use App\Models\Seance;
 use Illuminate\Http\Request;
 
 class SeanceController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    function __construct()
+    {
+         $this->middleware('permission:seance-list|product-create|product-edit|product-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:seance-create', ['only' => ['create','store']]);
+         $this->middleware('permission:seance-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:seance-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,6 +32,9 @@ class SeanceController extends Controller
         $seancesa = Seance::latest()->where('type_seance', '=', 'séance_théorique')->paginate(5);
         $seancesb = Seance::latest()->where('type_seance', '=', 'séance_pratique')->paginate(5);
         $seancesc = Seance::latest()->where('type_seance', '=', 'séance_pratique_supplémentaire')->paginate(5);
+        $moniteurs = Moniteur::all();
+        //dd($seancesa[0]->moniteur->nom);
+    
        
         //$seancesa=Seance::join('moniteurs','moniteurs.id_moniteur','=','seances.id_moniteur')->where('type_seance', '=', 'séance_théorique')
         // ->get();
@@ -33,7 +50,7 @@ class SeanceController extends Controller
         
 
     
-        return view('seances.create',compact('seancesa','seancesb','seancesc'))
+        return view('seances.create',compact('seancesa','seancesb','seancesc','moniteurs'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
         
     }
@@ -58,12 +75,27 @@ class SeanceController extends Controller
     {
         //dd($request->all());
         //\Debugbar::info($request);
-        Seance::create($request->all());
 
+        //Seance::create($request->all());
+        
+        $query=Seance::insert([
+            'jour'=>$request->input('jour'),
+            'heure_debut' =>$request->input('heure_debut'),
+            'heure_fin'=>$request->input('heure_fin'),
+            'moniteur_id'=>$request->input('moniteur_id'),
+            'type_seance'=>$request->input('type_seance'),
 
-    
+            
+          ] );
+
+        if($query)
+        {
+            return redirect()->route('seances.index')
+            ->with('success','Seance created successfully.');
+        }
         return redirect()->route('seances.index')
-                        ->with('success','Seance created successfully.');
+            ->with('failADDM','error!');
+        
     }
 
     /**
@@ -84,8 +116,10 @@ class SeanceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Seance $seance)
+    
     {
-        return view('seances.edit',compact('seance'));
+        $moniteurs = Moniteur::all();
+        return view('seances.edit',compact('seance','moniteurs'));
     }
 
     /**
@@ -97,17 +131,10 @@ class SeanceController extends Controller
      */
     public function update(Request $request, Seance $seance)
     {
-        request()->validate([
-            'type_seance' => 'required',
-            'heure_debut' => 'required',
-            'heure_fin' => 'required',
-            'jour' => 'required',
-            'id_moniteur' => 'required',
 
-        ]);
-    
+
         $seance->update($request->all());
-    
+
         return redirect()->route('seances.index')
                         ->with('success','Seance updated successfully');
     }
@@ -120,6 +147,9 @@ class SeanceController extends Controller
      */
     public function destroy(Seance $seance)
     {
-        //
+        $seance->delete();
+    
+        return redirect()->route('seances.index')
+                        ->with('success','Product deleted successfully');
     }
 }

@@ -20,4 +20,14 @@ class Seance extends Model
          'jour',
          'id_moniteur'
     ];
+
+    public function moniteur()
+    {
+        return $this->belongsTo(Moniteur::class);
+    }
+
+    public function condidats()
+    {
+        return $this->belongsToMany(Condidat::class, 'assisters');
+    }
 }

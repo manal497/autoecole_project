@@ -22,4 +22,9 @@ class Candidat extends Model
     {
         return $this->hasMany(Reservation::class);
     }
+
+    public function seances()
+    {
+        return $this->belongsToMany(Seance::class, 'assisters');
+    }
 }

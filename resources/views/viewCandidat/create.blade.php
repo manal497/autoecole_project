@@ -1,5 +1,7 @@
 @extends('layout.layoutGestionCandidat')
+
 @section('contentCandidat')
+
 
 <style>
 
@@ -93,8 +95,10 @@
                  <a href="datailsCandidat/{{$row['cin_candidat']}}" class="btn btn-info" style="color: rgb(233, 231, 238);" role="button" title="Details"><i class="fas fa-file-alt"></i>  </a>
                  <a href="formulaireUpdate/{{$row['cin_candidat']}}"  class="btn btn-success" style="color: rgb(233, 231, 238);" role="button" title="Editer les informations"><i class="fas fa-edit"></i></a>
                  <a class="ajouterReservation btn btn-secondary"  title="Ajouter une réservation" style="color: rgb(233, 231, 238);" data-bs-toggle="modal" data-bs-idUpdate="'.$row->cin_candidats.'" data-bs-target="#addRes"><i class="fas fa-money-check-alt"></i></a>
-                <a class="ajouterDocument btn btn-primary"  title="Ajouter les documents" style="color: rgb(233, 231, 238);" data-bs-toggle="modal" data-bs-idUpdate="'.$row->cin_candidats.'" data-bs-target="#addDocument"><i class="fas fa-file-alt"></i></a>
-                 <a  href="#" onclick="return confirm('Voulez vous supprimmer ce documment ?')" title="Supprimer" class="btn btn-danger" style="color: rgb(233, 231, 238);" ><i class="fas fa-trash"></i></a>
+               
+                 <a class="ajouterDocument btn btn-primary"  title="Ajouter les documents" style="color: rgb(233, 231, 238);" data-bs-toggle="modal" data-bs-idUpdate="'.$row->cin_candidats.'" data-bs-target="#addDocument"><i class="fas fa-file-alt"></i></a>
+
+                 {{--<a  href="#" onclick="return confirm('Voulez vous supprimmer ce documment ?')" title="Supprimer" class="btn btn-danger" style="color: rgb(233, 231, 238);" ><i class="fas fa-trash"></i></a>--}}
           
                 </div>
             </td>
@@ -221,7 +225,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header text-write">
-                <h4 class="modal-title">Ajouter une résérvation</h4>
+                <h4 class="modal-title">Ajouter une inscription</h4>
           
             <button  class="close" data-bs-target="#addRes" data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">    <i class="fas fa-times" aria-hidden="true"></i></span>
@@ -248,7 +252,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="date" class="col-sm-3 col-form-label">Date Réservation</label>
+                        <label for="date" class="col-sm-3 col-form-label">Date inscription</label>
                             <div class="col-sm-9">
                               <input type="date" name="date" id="date" class="form-control  custom-file-input" required>
                             </div>
@@ -420,11 +424,46 @@
     </div>
 
 </div>
-</
 <div>
-  <!-- ------------------------------------modl documents---------------------------------->
+<!--------------------------------------pop-up------------------------------------------------------------------------------------------------------------------>
+<div class="modal fade" id="addassister" tabindex="-1" role="dialog" style="z-index: 1050; display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header text-write">
+              <h4 class="modal-title">Ajouter les documents</h4>
+        
+              <button  class="close" data-bs-target="#addassister" data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">    <i class="fas fa-times" aria-hidden="true"></i></span>
+              </button>
+          </div>
 
-<!-- ----------------------------------------model pour ajouter un candidat-------------------------------------------->
+         
+                     
+  </div>
+
+</div>
+<!-------------------------------------------------------------------------------------------------------------------------------------------------------->
+<script type="text/javascript">
+
+function openModal(){
+
+    $('#addassister').modal();
+}       
+</script>
+<script>
+  $(document).ready(function(){
+ $("#myInput").on("keyup",function(){
+  var value = $(this).val().toLowerCase();
+  $("#myTable tr").filter(function(){
+ $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+
+  });
+
+ });
+
+  });
+</script>
+
 
 <script>
     var form=document.querySelector('.needs-validation');

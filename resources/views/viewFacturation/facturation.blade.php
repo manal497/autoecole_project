@@ -36,7 +36,7 @@
 @endif
    <div class="container">
 <div>
-    <h2 style="color:blueviolet">Liste Des Facturations</h2>
+    <h4>Liste Vehicules</h4>
     <label></label>
    
 </div>
@@ -108,7 +108,7 @@
                 <div class="modal-body">
                    
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Numéro du réservation</label>
+                        <label class="col-sm-3 col-form-label">Numéro d'inscription </label>
                         <div class="col-sm-9">
                   
                             <input type="number" id="num" name="num" class="form-control" value="{{$id}}" readonly/>

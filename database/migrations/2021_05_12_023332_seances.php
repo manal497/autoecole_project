@@ -21,8 +21,8 @@ class Seances extends Migration
             $table->time('heure_fin');
             
               
-            $table->unsignedBigInteger('id_moniteur');
-            $table->foreign('id_moniteur')
+            $table->unsignedBigInteger('moniteur_id');
+            $table->foreign('moniteur_id')
                 ->references('id')
                 ->on('moniteurs')
                 ->onDelete('cascade')

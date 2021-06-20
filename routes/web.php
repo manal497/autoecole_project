@@ -11,6 +11,9 @@ use App\Http\Controllers\CandidatController;
 use App\Http\Controllers\CandidatFacturation;
 use App\Http\Controllers\moniteurController;
 use App\Http\Controllers\recuFacturation;
+use App\Http\Controllers\AssisterController;
+
+
 
 
 
@@ -30,7 +33,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -41,6 +44,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('seances', SeanceController::class);
+    Route::resource('vehicules', VehiculeController::class);
+
+
+
+    
 });
 
 // Route::get('home', [HomeController::class,'index'])->name('home');
@@ -119,6 +128,8 @@ Route::get('/facturation/RecuDownload/{id_fact}',[recuFacturation::class,'downlo
  //** */
  //-------------------------------liste moniteurs-------------------------------------//
  Route::get('listeMoniteurs',[moniteurController::class,'liste'])->name('listeMoniteurs');
+ Route::get('CreateMoniteur',[moniteurController::class,'create'])->name('createMoniteur');
+
 //** */
 //------------------------------------ajouter moniteur------------------------------------------//
  Route::post('ajoutMoniteur',[moniteurController::class, 'addMoniteur'])->name('ajoutMoniteur');
@@ -134,5 +145,13 @@ Route::get('/facturation/RecuDownload/{id_fact}',[recuFacturation::class,'downlo
  
  Route::get('datailsMoniteur/{id_moniteur}',[moniteurController::class,'details']);
 
-Route::resource('seances', SeanceController::class);
+Route::resource('affectations', AffectationController::class);
+Route::resource('assisters', AssisterController::class);
+
+
+
+Route::view('/ecole', 'ecole')->name('ecole');
+
+
+
 

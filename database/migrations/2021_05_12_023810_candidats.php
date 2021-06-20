@@ -13,8 +13,8 @@ class Candidats extends Migration
      */
     public function up(){
     Schema::create('candidats', function (Blueprint $table) {
-       
-        $table->string('cin_candidat')->primary();
+        $table->bigIncrements('id');
+        $table->string('cin_candidat')->unique();
         $table->string('nom');
         $table->string('prenom');
         $table->text('adresse')->nullable();

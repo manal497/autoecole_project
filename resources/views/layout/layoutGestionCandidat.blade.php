@@ -41,11 +41,11 @@
 
   <nav class="navbar navbar-expand d-flex flex-column align-item-start" id="sidebar">
     <a href="#" class="navbar-brand text-light mt-5">
-        <div class="display-5 font-weight-bold"></div>
+        <img src="{{URL::asset('/images/image.jpeg')}}" alt="profile Pic" height="150" width="250">
     </a>
     <ul class="navbar-nav d-flex flex-column mt-5 w-100">
         <li class="nav-item w-100">
-            <a href="{{route('home')}}" class="nav-link text-light pl-4"><i class="fas fa-home" style="margin-right:10px;"></i>Dashboard</a>
+            <a href="{{route('home')}}" class="nav-link text-light pl-4"><i class="fas fa-home" style="margin-right:10px;"></i>Accueil</a>
         </li>
         <li class="nav-item w-100">
             <a href="{{route('candidatlist')}}" class="nav-link text-light pl-4"><i class="fas fa-user" style="margin-right:10px;"></i>Candidats</a>
@@ -61,11 +61,23 @@
             <a href="{{route('seances.index')}}" class="nav-link text-light pl-4"><i class="fas fa-book-reader" style="margin-right:10px;"></i>Séances</a>
         </li>
         <li class="nav-item w-100">
-          <a href="#" class="nav-link text-light pl-4"><i class="fas fa-parking" style="margin-right:10px;" ></i>Parking</a>
+          <a href="{{route('vehicules.index')}}" class="nav-link text-light pl-4"><i class="fas fa-parking" style="margin-right:10px;" ></i>Parking</a>
       </li>
       <li class="nav-item w-100">
-        <a href="#" class="nav-link text-light pl-4"><i class="fas fa-school" style="margin-right:10px;"></i>Ecole</a>
-    </li>
+        <a href="{{route('ecole')}}" class="nav-link text-light pl-4"><i class="fas fa-school" style="margin-right:10px;"></i>Ecole</a>
+      </li>
+      <li class="nav-item w-100">
+        <a class="nav-link text-light pl-4" href="{{ route('logout') }}"
+                 onclick="event.preventDefault();
+              document.getElementById('logout-form').submit();">
+                    <i class="fa fa-sign-out" aria-hidden="true" style="margin-right:10px;"></i>Déconnexion
+         </a>
+
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          @csrf
+        </form>
+      </li>
     </ul>
 </nav>
 
@@ -74,7 +86,9 @@
   <button class="btn my-4" id="menu-btn"><i class="fas fa-bars"></i></button>
   <div class="content">
   <div class="container-fluid">
+
   @yield('contentCandidat')
+  
   </div>
 </div>
 </section>
@@ -89,7 +103,7 @@
     menu_btn.addEventListener("click", () => {
         sidebar.classList.toggle("active-nav")
         container.classList.toggle("active-cont")
-    })
+     })
 </script>
       </body>
       </html>

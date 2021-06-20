@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Candidat;
 use App\Models\Document;
+use App\Models\Seance;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,8 +16,9 @@ class CandidatController extends Controller
         $table=new Candidat();
     
         $data= Candidat::get(['cin_candidat','nom','prenom','type_permis','telephone']);
+        $seances = Seance::latest()->paginate(5);
         
-      return view('viewCandidat.create', compact('data'));
+      return view('viewCandidat.create', compact('data','seances'));
 
 
     }
@@ -76,7 +78,7 @@ class CandidatController extends Controller
         $documment->carte_recto=$carteRecto_name;
   
         $documment->cin_candidat=$cin;
-        $documment->save();
+       // $documment->save();
     
      }
      if($hascarteVerso){
@@ -85,7 +87,7 @@ class CandidatController extends Controller
         
         $documment->carte_verso=$carteVerso_name;
         $documment->cin_candidat=$cin;
-        $documment->save();
+        //$documment->save();
     
       }
 
@@ -95,7 +97,7 @@ class CandidatController extends Controller
         $documment->certificat_medical=$certificatMed_name;
         
         $documment->cin_candidat=$cin;
-        $documment->save();
+        //$documment->save();
     
        }
 
@@ -115,7 +117,7 @@ class CandidatController extends Controller
         $documment->recu_paiement=$recuPayer_name;
       
         $documment->cin_candidat=$cin;
-        $documment->save();
+        //$documment->save();
     
       }
       if($hasdemmande){
@@ -123,14 +125,14 @@ class CandidatController extends Controller
         $documment->demmande_etablit=$demmande_name;
       
         $documment->cin_candidat=$cin;
-        $documment->save();
+        //$documment->save();
       }
 
       if($hasattestationFin){
       
         $documment->attestation_fin_formation=$attestationFin_name;
         $documment->cin_candidat=$cin;
-        $documment->save();
+        //$documment->save();
     
         $attestationFin->move($location,$attestationFin_name);
         }
@@ -146,7 +148,8 @@ class CandidatController extends Controller
         $documment->attestation_fin_formation=$attestationFin_name;
         $documment->cin_candidat=$cin;
         $documment->save();*/
-    
+        
+        $documment->save();
         if( $documment )
         {
           return redirect()->route('candidatlist')->with('successADDDoc','data has been successfuly inserted !');
@@ -195,8 +198,10 @@ class CandidatController extends Controller
       }
      
     }
-   /* public function destroy(Candidat $candidat){
-      $candidat->delete();
+    /*public function destroy($id){
+      $table=new Candidat();
+      $delete=$table->where('cin_candidat',$id);
+      $delete->delete();
       return redirect()->route('viewCandidat.create')
       ->with('success','la suppression est effctuée!');
     }*/

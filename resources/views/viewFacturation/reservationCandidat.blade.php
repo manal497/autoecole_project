@@ -1,9 +1,13 @@
 @extends('layout.layoutGestionCandidat')
 @section('contentCandidat')
-   <div class="container">
-<div>
-    <h2 style="color:blueviolet">Liste Des Résérvations</h2>
-</div>
+<div class="container">
+    <div class="card-header">
+      <div class="row align-items-center">
+          <div class="col-md-8">
+              <h3 class="mb-0">Gestion des Moniteurs</h3>
+          </div>
+      </div>
+    </div><br>
 <div>
  
     <input type="text" id="myInput" name="myInput" placeholder="Rechercher..." class="form-control">
@@ -16,7 +20,7 @@
             <td><h5>#</h5></td>
             <td><h5>CIN</h5></td>
             <td><h5>Type permis</h5></td>
-            <td><h5>Date Réservation</h5></td>
+            <td><h5>Date d'inscription</h5></td>
             <td><h5>Montant</h5></td>
             
            <td><h5> Reste</h5></td>

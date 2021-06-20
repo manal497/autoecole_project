@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Moniteur;
+use App\Models\Vehicule;
 use Illuminate\Http\Request;
 
 class moniteurController extends Controller
@@ -9,9 +10,16 @@ class moniteurController extends Controller
     public function liste(){
       //  
     
-        $data=Moniteur::get();
         
-      return view('viewMoniteurs.listeMoniteurs', compact('data'));
+        $data=Moniteur::get();
+        $vehicules=Vehicule::get();
+        
+      return view('viewMoniteurs.listeMoniteurs', compact('data','vehicules'));
+    }
+
+    public function create(){
+      
+      return view('viewMoniteurs.createMoniteur');
     }
     public function addMoniteur(Request $request){
      
@@ -42,13 +50,11 @@ class moniteurController extends Controller
 
         ] );
     
-       if($query)
+        if($query)
         {
-          return back()->with('successADDM','data has been successfuly inserted !');
+            return redirect()->route('listeMoniteurs');
         }
-        else {
-          return back()->with('failADDM','error!');
-        }
+        return redirect()->route('listeMoniteurs');
        
       }
       public function formupdate($id){
